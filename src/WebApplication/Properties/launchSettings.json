@@ -15,7 +15,7 @@
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
     },
-    "WebApplication": {
+    "WebApplication": { 
       "commandName": "Project",
       "launchBrowser": true,
       "launchUrl": "http://localhost:8080",
