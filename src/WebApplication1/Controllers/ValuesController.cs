@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using MySql.Data.MySqlClient;
 
 namespace WebApplication1.Controllers
 {
@@ -12,7 +13,7 @@ namespace WebApplication1.Controllers
     // GET api/values
     [HttpGet]
     public IEnumerable<string> Get()
-    {
+    {   
       return new string[] { "value1", "value2" };
     }
 
@@ -20,7 +21,23 @@ namespace WebApplication1.Controllers
     [HttpGet("{id}")]
     public string Get(int id)
     {
-      return id.ToString();
+      string result = (-1000).ToString();
+      string connectionString = "server=172.30.250.114;user id=userVCB;password=mMlxj4suB5Wgx1Jk;persistsecurityinfo=True;port=3306;database=sampledb"
+
+      try
+      {
+        using (MySqlConnection connection = new MySqlConnection(connectionString))
+        {
+          MySqlCommand cmd = new MySqlCommand("CREATE TABLE User IF NOT EXISTS (id INTEGER, name STRING);");
+          result = cmd.ExecuteNonQuery().ToString();
+        }
+      }
+      catch (Exception ex)
+      {
+        return ex.Message;
+      }
+
+      return result;
     }
 
     // POST api/values
