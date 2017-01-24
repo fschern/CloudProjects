@@ -29,7 +29,7 @@ namespace WebApplication1.Controllers
         using (MySqlConnection connection = new MySqlConnection(connectionString))
         {
           connection.Open();
-          MySqlCommand cmd = new MySqlCommand("CREATE TABLE User IF NOT EXISTS (id INTEGER, name STRING);");
+          MySqlCommand cmd = new MySqlCommand("CREATE TABLE User (id int, name varchar(255));");
 
           cmd.Connection = connection;
           result = cmd.ExecuteNonQuery().ToString();
