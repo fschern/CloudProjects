@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using MySql.Data.MySqlClient;
+using System.Collections;
 
 namespace WebApplication1.Controllers
 {
@@ -13,7 +14,7 @@ namespace WebApplication1.Controllers
     // GET api/values
     [HttpGet]
     public IEnumerable<string> Get()
-    {   
+    {
       return new string[] { "value1", "value2" };
     }
 
@@ -21,24 +22,30 @@ namespace WebApplication1.Controllers
     [HttpGet("{id}")]
     public string Get(int id)
     {
-      string result = (-1000).ToString();
-      string connectionString = "server=172.30.250.114;user id=userVCB;password=mMlxj4suB5Wgx1Jk;persistsecurityinfo=True;SslMode=None;port=3306;database=sampledb";
+      string result = string.Empty;
 
-      try
-      {
-        using (MySqlConnection connection = new MySqlConnection(connectionString))
-        {
-          connection.Open();
-          MySqlCommand cmd = new MySqlCommand("CREATE TABLE User (id int, name varchar(255));");
+      foreach (DictionaryEntry de in Environment.GetEnvironmentVariables())
+        result += string.Format("  {0} = {1}", de.Key, de.Value) + "\n";
 
-          cmd.Connection = connection;
-          result = cmd.ExecuteNonQuery().ToString();
-        }
-      }
-      catch (Exception ex)
-      {
-        return ex.Message;
-      }
+
+      //string result = (-1000).ToString();
+      //string connectionString = "server=172.30.250.114;user id=userVCB;password=mMlxj4suB5Wgx1Jk;persistsecurityinfo=True;SslMode=None;port=3306;database=sampledb";
+
+      //try
+      //{
+      //  using (MySqlConnection connection = new MySqlConnection(connectionString))
+      //  {
+      //    connection.Open();
+      //    MySqlCommand cmd = new MySqlCommand("CREATE TABLE User (id int, name varchar(255));");
+
+      //    cmd.Connection = connection;
+      //    result = cmd.ExecuteNonQuery().ToString();
+      //  }
+      //}
+      //catch (Exception ex)
+      //{
+      //  return ex.Message;
+      //}
 
       return result;
     }
