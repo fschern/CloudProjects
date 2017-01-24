@@ -22,7 +22,7 @@ namespace WebApplication1.Controllers
     public string Get(int id)
     {
       string result = (-1000).ToString();
-      string connectionString = "server=172.30.250.114;user id=userVCB;password=mMlxj4suB5Wgx1Jk;persistsecurityinfo=True;port=3306;database=sampledb";
+      string connectionString = "server=172.30.250.114;user id=userVCB;password=mMlxj4suB5Wgx1Jk;persistsecurityinfo=True;SslMode=None;port=3306;database=sampledb";
 
       try
       {
