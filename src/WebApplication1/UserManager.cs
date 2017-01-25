@@ -54,9 +54,12 @@ namespace WebApplication1
         cmd.Parameters.Add(new MySqlParameter("id", id));
         DbDataReader reader = cmd.ExecuteReader();
 
-        if (reader.NextResult())
+        if (reader.HasRows)
         {
-          return new User() { ID = reader.GetInt32(1), Name = reader[1].ToString() };
+          while (reader.Read())
+          {
+            return new User() { ID = reader.GetInt32(1), Name = reader[1].ToString() };
+          }
         }
       }
 
