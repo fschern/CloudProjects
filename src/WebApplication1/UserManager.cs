@@ -12,8 +12,9 @@ namespace WebApplication1
     {
       using (DbConnection connection = GetConnection())
       {
-        MySqlCommand cmd = new MySqlCommand("INSERT INTO User VALUES(@id, @name);");
+        DbCommand cmd = new MySqlCommand("INSERT INTO User VALUES(@id, @name);");
 
+        cmd.Connection = connection;
         cmd.Parameters.Add(new MySqlParameter("id", user.ID));
         cmd.Parameters.Add(new MySqlParameter("name", user.Name));
         cmd.ExecuteNonQuery();
@@ -26,7 +27,9 @@ namespace WebApplication1
 
       using (DbConnection connection = GetConnection())
       {
-        MySqlCommand cmd = new MySqlCommand("SELECT * FROM User;");
+        DbCommand cmd = new MySqlCommand("SELECT * FROM User;");
+
+        cmd.Connection = connection;
         DbDataReader reader = cmd.ExecuteReader();
 
         while (reader.NextResult())
@@ -75,7 +78,8 @@ namespace WebApplication1
       builder.Port = uint.Parse(Environment.GetEnvironmentVariable("MARIADB_SERVICE_PORT"));
       builder.Server = Environment.GetEnvironmentVariable("MARIADB_SERVICE_HOST");
 
-      DbConnection connection = new MySqlConnection("server=172.30.250.114;user id=userVCB;password=mMlxj4suB5Wgx1Jk;persistsecurityinfo=True;SslMode=None;port=3306;database=sampledb");
+      string connectionString = "server=172.30.250.114;user id=userVCB;password=mMlxj4suB5Wgx1Jk;persistsecurityinfo=True;SslMode=None;port=3306;database=sampledb";
+      MySqlConnection connection = new MySqlConnection(connectionString);
       connection.Open();
       return connection;
     }
