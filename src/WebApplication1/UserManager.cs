@@ -45,9 +45,11 @@ namespace WebApplication1
     {
       using (DbConnection connection = GetConnection())
       {
-        MySqlCommand cmd = new MySqlCommand("SELECT TOP 1 * FROM User WHERE id=@id;");
+        DbCommand cmd = new MySqlCommand("SELECT TOP 1 * FROM User WHERE id=@id;");
 
+        cmd.Connection = connection;
         cmd.Parameters.Add(new MySqlParameter("id", id));
+
         DbDataReader reader = cmd.ExecuteReader();
 
         if (reader.NextResult())

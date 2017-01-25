@@ -29,7 +29,7 @@ namespace WebApplication1.Controllers
       catch (Exception)
       {
         return NotFound();
-      }     
+      }
 
       if (item == null)
       {
@@ -40,18 +40,21 @@ namespace WebApplication1.Controllers
     }
 
     [HttpGet]
-    public string GetAll()
+    public IEnumerable<User> GetAll()
     {
-      try
+      return Manager.GetAllUsers();
+    }
+
+    [HttpPost]
+    public IActionResult AddUser([FromBody] User item)
+    {
+      if (item == null)
       {
-        Manager.GetAllUsers();
-      }
-      catch (Exception ex)
-      {
-        return ex.Message;
+        return BadRequest();
       }
 
-      return "OK";
+      Manager.AddUser(item);
+      return CreatedAtRoute("GetUser", new { id = item.ID }, item);
     }
   }
 }
