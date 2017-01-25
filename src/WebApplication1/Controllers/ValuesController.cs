@@ -23,34 +23,34 @@ namespace WebApplication1.Controllers
     [HttpGet("{id}")]
     public string Get(int id)
     {
-      string result = string.Empty;
+      //string result = string.Empty;
 
-      foreach (DictionaryEntry de in Environment.GetEnvironmentVariables())
-        result += string.Format("  {0} = {1}", de.Key, de.Value) + "\n";
+      //foreach (DictionaryEntry de in Environment.GetEnvironmentVariables())
+      //  result += string.Format("  {0} = {1}", de.Key, de.Value) + "\n";
 
-      Debug.Write("sölfkjöasdlkfj");
+      //Debug.Write("sölfkjöasdlkfj");
 
-      // MARIADB_SERVICE_PORT
-      // MARIADB_SERVICE_HOST
+      //MARIADB_SERVICE_PORT
+      //MARIADB_SERVICE_HOST
 
-      //string result = (-1000).ToString();
-      //string connectionString = "server=172.30.250.114;user id=userVCB;password=mMlxj4suB5Wgx1Jk;persistsecurityinfo=True;SslMode=None;port=3306;database=sampledb";
+      string result = (-1000).ToString();
+      string connectionString = "server=172.30.250.114;user id=userVCB;password=mMlxj4suB5Wgx1Jk;persistsecurityinfo=True;SslMode=None;port=3306;database=sampledb";
 
-      //try
-      //{
-      //  using (MySqlConnection connection = new MySqlConnection(connectionString))
-      //  {
-      //    connection.Open();
-      //    MySqlCommand cmd = new MySqlCommand("CREATE TABLE User (id int, name varchar(255));");
+      try
+      {
+        using (MySqlConnection connection = new MySqlConnection(connectionString))
+        {
+          connection.Open();
+          MySqlCommand cmd = new MySqlCommand("CREATE TABLE User (id int, name varchar(255));");
 
-      //    cmd.Connection = connection;
-      //    result = cmd.ExecuteNonQuery().ToString();
-      //  }
-      //}
-      //catch (Exception ex)
-      //{
-      //  return ex.Message;
-      //}
+          cmd.Connection = connection;
+          result = cmd.ExecuteNonQuery().ToString();
+        }
+      }
+      catch (Exception ex)
+      {
+        return ex.Message;
+      }
 
       return result;
     }

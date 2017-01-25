@@ -66,8 +66,7 @@ namespace WebApplication1
 
     private DbConnection GetConnection()
     {
-      MySqlConnectionStringBuilder builder = new MySqlConnectionStringBuilder();
-      
+      MySqlConnectionStringBuilder builder = new MySqlConnectionStringBuilder();      
       builder.UserID = "userVCB";
       builder.Password = "mMlxj4suB5Wgx1Jk";
       builder.Database = "sampledb";
