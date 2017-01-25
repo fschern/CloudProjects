@@ -49,7 +49,7 @@ namespace WebApplication1
     {
       using (DbConnection connection = GetConnection())
       {
-        DbCommand cmd = new MySqlCommand("SELECT * FROM User WHERE id=@id LIMIT 1;", connection as MySqlConnection);
+        DbCommand cmd = new MySqlCommand("SELECT * FROM User WHERE id=@id;", connection as MySqlConnection);
 
         cmd.Parameters.Add(new MySqlParameter("id", id));
         DbDataReader reader = cmd.ExecuteReader();
@@ -82,8 +82,7 @@ namespace WebApplication1
       builder.Port = uint.Parse(Environment.GetEnvironmentVariable("MARIADB_SERVICE_PORT"));
       builder.Server = Environment.GetEnvironmentVariable("MARIADB_SERVICE_HOST");
 
-      string connectionString = "server=172.30.250.114;user id=userVCB;password=mMlxj4suB5Wgx1Jk;persistsecurityinfo=True;SslMode=None;port=3306;database=sampledb";
-      MySqlConnection connection = new MySqlConnection(connectionString);
+      MySqlConnection connection = new MySqlConnection(builder.GetConnectionString(false));
       connection.Open();
       return connection;
     }
