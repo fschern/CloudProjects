@@ -12,9 +12,8 @@ namespace WebApplication1
     {
       using (DbConnection connection = GetConnection())
       {
-        DbCommand cmd = new MySqlCommand("INSERT INTO User VALUES(@id, @name);");
+        DbCommand cmd = new MySqlCommand("INSERT INTO User VALUES(@id, @name);", connection as MySqlConnection);
 
-        cmd.Connection = connection;
         cmd.Parameters.Add(new MySqlParameter("id", user.ID));
         cmd.Parameters.Add(new MySqlParameter("name", user.Name));
         cmd.ExecuteNonQuery();
@@ -27,14 +26,19 @@ namespace WebApplication1
 
       using (DbConnection connection = GetConnection())
       {
-        DbCommand cmd = new MySqlCommand("SELECT * FROM User;");
-
-        cmd.Connection = connection;
+        DbCommand cmd = new MySqlCommand("SELECT * FROM User;", connection as MySqlConnection);
         DbDataReader reader = cmd.ExecuteReader();
 
-        while (reader.NextResult())
+        if (reader.HasRows)
         {
-          users.Add(new User() { ID = reader.GetInt32(0), Name = reader[1].ToString() });
+          while (reader.Read())
+          {
+            users.Add(new User()
+            {
+              ID = reader.GetInt32(0),
+              Name = reader.GetString(1)
+            });
+          }
         }
       }
 
@@ -45,11 +49,9 @@ namespace WebApplication1
     {
       using (DbConnection connection = GetConnection())
       {
-        DbCommand cmd = new MySqlCommand("SELECT TOP 1 * FROM User WHERE id=@id;");
+        DbCommand cmd = new MySqlCommand("SELECT * FROM User WHERE id=@id LIMIT 1;", connection as MySqlConnection);
 
-        cmd.Connection = connection;
         cmd.Parameters.Add(new MySqlParameter("id", id));
-
         DbDataReader reader = cmd.ExecuteReader();
 
         if (reader.NextResult())
