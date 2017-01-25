@@ -82,7 +82,7 @@ namespace WebApplication1
       builder.Port = uint.Parse(Environment.GetEnvironmentVariable("MARIADB_SERVICE_PORT"));
       builder.Server = Environment.GetEnvironmentVariable("MARIADB_SERVICE_HOST");
 
-      MySqlConnection connection = new MySqlConnection(builder.GetConnectionString(false));
+      MySqlConnection connection = new MySqlConnection(builder.GetConnectionString(true));
       connection.Open();
       return connection;
     }
