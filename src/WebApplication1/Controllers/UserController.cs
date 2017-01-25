@@ -40,9 +40,18 @@ namespace WebApplication1.Controllers
     }
 
     [HttpGet]
-    public IEnumerable<User> GetAll()
+    public string GetAll()
     {
-      return Manager.GetAllUsers();
+      try
+      {
+        Manager.GetAllUsers();
+      }
+      catch (Exception ex)
+      {
+        return ex.Message;
+      }
+
+      return "OK";
     }
   }
 }
