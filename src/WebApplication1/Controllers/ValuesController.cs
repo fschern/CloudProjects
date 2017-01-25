@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using MySql.Data.MySqlClient;
 using System.Collections;
+using System.Diagnostics;
 
 namespace WebApplication1.Controllers
 {
@@ -27,6 +28,10 @@ namespace WebApplication1.Controllers
       foreach (DictionaryEntry de in Environment.GetEnvironmentVariables())
         result += string.Format("  {0} = {1}", de.Key, de.Value) + "\n";
 
+      Debug.Write("sölfkjöasdlkfj");
+
+      // MARIADB_SERVICE_PORT
+      // MARIADB_SERVICE_HOST
 
       //string result = (-1000).ToString();
       //string connectionString = "server=172.30.250.114;user id=userVCB;password=mMlxj4suB5Wgx1Jk;persistsecurityinfo=True;SslMode=None;port=3306;database=sampledb";
