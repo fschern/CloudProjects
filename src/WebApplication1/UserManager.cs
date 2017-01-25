@@ -76,7 +76,7 @@ namespace WebApplication1
       builder.Port = uint.Parse(Environment.GetEnvironmentVariable("MARIADB_SERVICE_PORT"));
       builder.Server = Environment.GetEnvironmentVariable("MARIADB_SERVICE_HOST");
 
-      DbConnection connection = new MySqlConnection(builder.GetConnectionString(false));
+      DbConnection connection = new MySqlConnection("server=172.30.250.114;user id=userVCB;password=mMlxj4suB5Wgx1Jk;persistsecurityinfo=True;SslMode=None;port=3306;database=sampledb");
       connection.Open();
       return connection;
     }
